@@ -1,0 +1,29 @@
+=== Session A: secret=50, Normal ===
+  on load: ['Guess a number between 1 and 100. Attempts left: 7']
+  guess=60     attempts=2 score=5 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+  guess=40     attempts=3 score=0 status=playing hint=['Go LOWER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 6']
+  guess=9      attempts=4 score=5 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 5']
+
+=== Session B: secret=50, guess exactly 50 on an even attempt ===
+  guess=50     attempts=2 score=70 status=won hint=['Correct!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+
+=== Session C: invalid input ===
+  guess='abc'  attempts=2 score=0 status=playing hint=[] errors=['That is not a number.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+  guess=''     attempts=3 score=0 status=playing hint=[] errors=['Enter a guess.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 6']
+  history: ['abc', '']
+
+=== Session D: win, then press New Game ===
+  guess=50     attempts=3 score=60 status=won hint=['Correct!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 6']
+  after New Game: status=won attempts=0 score=60 history=[50]
+  messages: ['You already won. Start a new game to play again.'] []
+
+=== Session E: Hard difficulty ===
+  sidebar: ['Range: 1 to 50', 'Attempts allowed: 5']
+  main banner: ['Guess a number between 1 and 100. Attempts left: 4']
