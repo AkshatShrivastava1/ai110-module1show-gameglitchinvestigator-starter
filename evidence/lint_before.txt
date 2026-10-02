@@ -1,0 +1,11 @@
+7.4.1 (mccabe: 0.7.0, pycodestyle: 2.15.0, pyflakes: 4.0.1) CPython 3.10.12 on
+app.py:39:80: E501 line too long (80 > 79 characters)
+app.py:71:80: E501 line too long (81 > 79 characters)
+app.py:75:80: E501 line too long (88 > 79 characters)
+evidence/repro_original.py:58:80: E501 line too long (80 > 79 characters)
+evidence/verify_fixed.py:79:1: E402 module level import not at top of file
+logic_utils.py:193:80: E501 line too long (80 > 79 characters)
+tests/test_edge_cases.py:1:80: E501 line too long (80 > 79 characters)
+tests/test_edge_cases.py:44:80: E501 line too long (107 > 79 characters)
+tests/test_edge_cases.py:54:80: E501 line too long (87 > 79 characters)
+tests/test_edge_cases.py:62:80: E501 line too long (98 > 79 characters)

@@ -1,6 +1,9 @@
 """Drive the ORIGINAL starter app headlessly and log what happens.
 
-Run: python evidence/repro_original.py
+Run against the starter code (commit e931e66):
+    git stash; git checkout e931e66 -- app.py
+    python evidence/repro_original.py
+    git checkout HEAD -- app.py; git stash pop
 Uses streamlit.testing.v1.AppTest so the real app.py runs end to end.
 """
 from streamlit.testing.v1 import AppTest
@@ -55,7 +58,8 @@ at.run()
 print(f"  after New Game: status={at.session_state.status} "
       f"attempts={at.session_state.attempts} score={at.session_state.score} "
       f"history={at.session_state.history}")
-print("  messages:", [s.value for s in at.success], [e.value for e in at.error])
+print("  messages:", [s.value for s in at.success],
+      [e.value for e in at.error])
 
 print("\n=== Session E: Hard difficulty ===")
 at = AppTest.from_file(APP, default_timeout=30)

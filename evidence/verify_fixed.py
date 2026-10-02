@@ -2,6 +2,7 @@
 
 Run: python evidence/verify_fixed.py
 """
+import json
 import sys
 from pathlib import Path
 
@@ -74,3 +75,16 @@ at = fresh(10, "Easy")
 for g in [1, 2, 3, 4, 5, 6]:
     guess(at, g)
 print("  end message:", [e.value for e in at.error])
+
+print("\n=== Session G: hot/cold hints, history table, high score ===")
+hs = Path(__file__).resolve().parent.parent / "high_scores.json"
+hs.unlink(missing_ok=True)
+at = fresh(50)
+for g in [90, 60, 52, 50]:
+    guess(at, g)
+print("  history table:", at.table[0].value.to_dict("records"))
+print("  success:", [s.value for s in at.success])
+print("  high_scores.json:", json.loads(hs.read_text()))
+at.run()
+print("  sidebar high scores:", [m.value for m in at.sidebar.markdown])
+hs.unlink(missing_ok=True)

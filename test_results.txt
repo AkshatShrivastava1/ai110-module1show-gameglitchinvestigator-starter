@@ -1,0 +1,53 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /sessions/rcw-01b7gw9ywzqpwdpipymc8sum/mnt/P1_Game glitch investigator/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /sessions/rcw-01b7gw9ywzqpwdpipymc8sum/mnt/P1_Game glitch investigator
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1
+collecting ... collected 42 items
+
+tests/test_edge_cases.py::test_non_numeric_strings_are_rejected[abc] PASSED [  2%]
+tests/test_edge_cases.py::test_non_numeric_strings_are_rejected[12abc] PASSED [  4%]
+tests/test_edge_cases.py::test_non_numeric_strings_are_rejected[one] PASSED [  7%]
+tests/test_edge_cases.py::test_non_numeric_strings_are_rejected[4 2] PASSED [  9%]
+tests/test_edge_cases.py::test_non_numeric_strings_are_rejected[--5] PASSED [ 11%]
+tests/test_edge_cases.py::test_empty_or_whitespace_input_is_rejected[None] PASSED [ 14%]
+tests/test_edge_cases.py::test_empty_or_whitespace_input_is_rejected[] PASSED [ 16%]
+tests/test_edge_cases.py::test_empty_or_whitespace_input_is_rejected[   ] PASSED [ 19%]
+tests/test_edge_cases.py::test_negative_zero_and_huge_values_are_out_of_range[-5] PASSED [ 21%]
+tests/test_edge_cases.py::test_negative_zero_and_huge_values_are_out_of_range[0] PASSED [ 23%]
+tests/test_edge_cases.py::test_negative_zero_and_huge_values_are_out_of_range[101] PASSED [ 26%]
+tests/test_edge_cases.py::test_negative_zero_and_huge_values_are_out_of_range[99999999999999999999] PASSED [ 28%]
+tests/test_edge_cases.py::test_fractional_and_non_finite_floats_are_rejected[3.5] PASSED [ 30%]
+tests/test_edge_cases.py::test_fractional_and_non_finite_floats_are_rejected[99.9] PASSED [ 33%]
+tests/test_edge_cases.py::test_fractional_and_non_finite_floats_are_rejected[nan] PASSED [ 35%]
+tests/test_edge_cases.py::test_fractional_and_non_finite_floats_are_rejected[inf] PASSED [ 38%]
+tests/test_edge_cases.py::test_fractional_and_non_finite_floats_are_rejected[-inf] PASSED [ 40%]
+tests/test_edge_cases.py::test_valid_inputs_including_boundaries[42-42] PASSED [ 42%]
+tests/test_edge_cases.py::test_valid_inputs_including_boundaries[  7  -7] PASSED [ 45%]
+tests/test_edge_cases.py::test_valid_inputs_including_boundaries[42.0-42] PASSED [ 47%]
+tests/test_edge_cases.py::test_valid_inputs_including_boundaries[1-1] PASSED [ 50%]
+tests/test_edge_cases.py::test_valid_inputs_including_boundaries[100-100] PASSED [ 52%]
+tests/test_edge_cases.py::test_range_check_is_skipped_without_bounds PASSED [ 54%]
+tests/test_edge_cases.py::test_unknown_difficulty_falls_back_to_normal PASSED [ 57%]
+tests/test_edge_cases.py::test_temperature_labels[50-50-Bullseye] PASSED [ 59%]
+tests/test_edge_cases.py::test_temperature_labels[53-50-Hot] PASSED      [ 61%]
+tests/test_edge_cases.py::test_temperature_labels[60-50-Warm] PASSED     [ 64%]
+tests/test_edge_cases.py::test_temperature_labels[75-50-Cool] PASSED     [ 66%]
+tests/test_edge_cases.py::test_temperature_labels[1-100-Cold] PASSED     [ 69%]
+tests/test_edge_cases.py::test_temperature_scales_with_range PASSED      [ 71%]
+tests/test_edge_cases.py::test_missing_high_score_file_returns_empty PASSED [ 73%]
+tests/test_edge_cases.py::test_corrupt_high_score_file_does_not_crash PASSED [ 76%]
+tests/test_edge_cases.py::test_high_score_only_saved_when_beaten PASSED  [ 78%]
+tests/test_game_logic.py::test_winning_guess PASSED                      [ 80%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 83%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 85%]
+tests/test_game_logic.py::test_too_high_hint_says_go_lower PASSED        [ 88%]
+tests/test_game_logic.py::test_too_low_hint_says_go_higher PASSED        [ 90%]
+tests/test_game_logic.py::test_single_digit_guess_is_too_low_not_string_compared PASSED [ 92%]
+tests/test_game_logic.py::test_wrong_guess_never_adds_points PASSED      [ 95%]
+tests/test_game_logic.py::test_first_try_win_scores_100 PASSED           [ 97%]
+tests/test_game_logic.py::test_hard_range_is_wider_than_normal PASSED    [100%]
+
+============================== 42 passed in 0.03s ==============================

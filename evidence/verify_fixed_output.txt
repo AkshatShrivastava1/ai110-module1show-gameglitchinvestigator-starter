@@ -1,16 +1,16 @@
 === Session A: secret=50, Normal (bugs 1, 2, 3, 4) ===
   on load: ['Guess a number between 1 and 100. Attempts left: 8']
-  guess=60     attempts=1 score=-5 status=playing hint=['Go LOWER!'] errors=[]
+  guess=60     attempts=1 score=-5 status=playing hint=['Go LOWER!  ♨️ Warm'] errors=[]
       info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
-  guess=40     attempts=2 score=-10 status=playing hint=['Go HIGHER!'] errors=[]
+  guess=40     attempts=2 score=-10 status=playing hint=['Go HIGHER!  ♨️ Warm'] errors=[]
       info banner -> ['Guess a number between 1 and 100. Attempts left: 6']
-  guess=9      attempts=3 score=-15 status=playing hint=['Go HIGHER!'] errors=[]
-      info banner -> ['Guess a number between 1 and 100. Attempts left: 5']
+  guess=9      attempts=3 score=-15 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 5', 'Go HIGHER!  🧊 Cold']
 
 === Session B: first-try win (bug 8) ===
   guess=50     attempts=1 score=100 status=won hint=[] errors=[]
       info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
-  success: ['You won! The secret was 50. Final score: 100. Press New Game to play again.']
+  success: ['You won! The secret was 50. Final score: 100. Press New Game to play again.', 'New Normal high score!']
 
 === Session C: invalid / out-of-range input (bugs 7, 9) ===
   guess='abc'  attempts=0 score=0 status=playing hint=[] errors=['That is not a number.']
@@ -30,7 +30,7 @@
       info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
   after New Game: status=playing attempts=0 score=0 history=[]
   banner: ['Guess a number between 1 and 100. Attempts left: 8']
-  guess=79     attempts=1 score=100 status=won hint=[] errors=[]
+  guess=99     attempts=1 score=100 status=won hint=[] errors=[]
       info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
 
 === Session E: Hard difficulty (bug 6) ===
@@ -39,16 +39,30 @@
   secret in range: True
 
 === Session F: run out of attempts on Easy ===
-  guess=1      attempts=1 score=-5 status=playing hint=['Go HIGHER!'] errors=[]
-      info banner -> ['Guess a number between 1 and 20. Attempts left: 5']
-  guess=2      attempts=2 score=-10 status=playing hint=['Go HIGHER!'] errors=[]
-      info banner -> ['Guess a number between 1 and 20. Attempts left: 4']
-  guess=3      attempts=3 score=-15 status=playing hint=['Go HIGHER!'] errors=[]
-      info banner -> ['Guess a number between 1 and 20. Attempts left: 3']
-  guess=4      attempts=4 score=-20 status=playing hint=['Go HIGHER!'] errors=[]
-      info banner -> ['Guess a number between 1 and 20. Attempts left: 2']
-  guess=5      attempts=5 score=-25 status=playing hint=['Go HIGHER!'] errors=[]
-      info banner -> ['Guess a number between 1 and 20. Attempts left: 1']
-  guess=6      attempts=6 score=-30 status=lost hint=['Go HIGHER!'] errors=['Out of attempts! The secret was 10. Score: -30. Press New Game to try again.']
-      info banner -> ['Guess a number between 1 and 20. Attempts left: 0']
+  guess=1      attempts=1 score=-5 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 5', 'Go HIGHER!  🧊 Cold']
+  guess=2      attempts=2 score=-10 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 4', 'Go HIGHER!  🧊 Cold']
+  guess=3      attempts=3 score=-15 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 3', 'Go HIGHER!  🧊 Cold']
+  guess=4      attempts=4 score=-20 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 2', 'Go HIGHER!  🧊 Cold']
+  guess=5      attempts=5 score=-25 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 1', 'Go HIGHER!  🌤️ Cool']
+  guess=6      attempts=6 score=-30 status=lost hint=[] errors=['Out of attempts! The secret was 10. Score: -30. Press New Game to try again.']
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 0', 'Go HIGHER!  🌤️ Cool']
   end message: ['Out of attempts! The secret was 10. Score: -30. Press New Game to try again.']
+
+=== Session G: hot/cold hints, history table, high score ===
+  guess=90     attempts=1 score=-5 status=playing hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7', 'Go LOWER!  🧊 Cold']
+  guess=60     attempts=2 score=-10 status=playing hint=['Go LOWER!  ♨️ Warm'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 6']
+  guess=52     attempts=3 score=-15 status=playing hint=['Go LOWER!  🔥 Hot'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 5']
+  guess=50     attempts=4 score=55 status=won hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 4']
+  history table: [{'#': 1, 'Guess': 90, 'Result': '⬆️ Too high', 'Closeness': '🧊 Cold'}, {'#': 2, 'Guess': 60, 'Result': '⬆️ Too high', 'Closeness': '♨️ Warm'}, {'#': 3, 'Guess': 52, 'Result': '⬆️ Too high', 'Closeness': '🔥 Hot'}, {'#': 4, 'Guess': 50, 'Result': '🎉 Correct', 'Closeness': '🎯 Bullseye'}]
+  success: ['You won! The secret was 50. Final score: 55. Press New Game to play again.', 'New Normal high score!']
+  high_scores.json: {'Normal': 55}
+  sidebar high scores: ['**Easy:** —', '**Normal:** 55 ◀', '**Hard:** —']

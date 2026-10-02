@@ -4,7 +4,9 @@ Everything in this module is free of Streamlit so it can be unit tested
 with pytest. ``app.py`` handles the UI and session state only.
 """
 
+import json
 import math
+from pathlib import Path
 
 # FIX: Hard used to be 1-50 (easier than Normal). Ranges and attempt limits
 # now live in one table so the UI, New Game, and validation all agree.
@@ -137,3 +139,77 @@ def update_score(current_score: int, outcome: str, attempt_number: int) -> int:
         return current_score - 5
 
     return current_score
+
+
+def get_temperature(guess: int, secret: int, low: int, high: int):
+    """Describe how close a guess is with a hot/cold label and emoji.
+
+    Closeness is measured as a fraction of the difficulty's range, so the
+    labels mean the same thing on Easy (1-20) and Hard (1-200).
+
+    Args:
+        guess: The player's guess.
+        secret: The secret number.
+        low: Inclusive lower bound of the range.
+        high: Inclusive upper bound of the range.
+
+    Returns:
+        A tuple ``(label, emoji)``, e.g. ``("Hot", "🔥")``.
+    """
+    distance = abs(guess - secret)
+    if distance == 0:
+        return "Bullseye", "🎯"
+    span = max(1, high - low)
+    ratio = distance / span
+    if ratio <= 0.05:
+        return "Hot", "🔥"
+    if ratio <= 0.15:
+        return "Warm", "♨️"
+    if ratio <= 0.30:
+        return "Cool", "🌤️"
+    return "Cold", "🧊"
+
+
+def load_high_scores(path) -> dict:
+    """Load saved high scores (one per difficulty) from a JSON file.
+
+    A missing, unreadable or malformed file returns an empty dict instead
+    of crashing the game.
+
+    Args:
+        path: Location of the JSON file.
+
+    Returns:
+        A dict mapping difficulty name to best score.
+    """
+    try:
+        data = json.loads(Path(path).read_text())
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {
+        key: value
+        for key, value in data.items()
+        if isinstance(value, int) and not isinstance(value, bool)
+    }
+
+
+def save_high_score(path, difficulty: str, score: int):
+    """Record ``score`` for ``difficulty`` if it beats the saved best.
+
+    Args:
+        path: Location of the JSON file.
+        difficulty: Difficulty the game was played on.
+        score: Final score of a won game.
+
+    Returns:
+        A tuple ``(high_scores, is_new_record)`` with the up-to-date scores.
+    """
+    scores = load_high_scores(path)
+    best = scores.get(difficulty)
+    if best is not None and score <= best:
+        return scores, False
+    scores[difficulty] = score
+    Path(path).write_text(json.dumps(scores, indent=2, sort_keys=True))
+    return scores, True
