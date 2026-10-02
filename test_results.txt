@@ -1,7 +1,7 @@
 ============================= test session starts ==============================
-platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /sessions/rcw-01b7gw9ywzqpwdpipymc8sum/mnt/P1_Game glitch investigator/.venv/bin/python
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- ./.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /sessions/rcw-01b7gw9ywzqpwdpipymc8sum/mnt/P1_Game glitch investigator
+rootdir: .
 configfile: pytest.ini
 testpaths: tests
 plugins: anyio-4.15.1
