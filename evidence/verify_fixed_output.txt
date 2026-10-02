@@ -1,0 +1,54 @@
+=== Session A: secret=50, Normal (bugs 1, 2, 3, 4) ===
+  on load: ['Guess a number between 1 and 100. Attempts left: 8']
+  guess=60     attempts=1 score=-5 status=playing hint=['Go LOWER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+  guess=40     attempts=2 score=-10 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 6']
+  guess=9      attempts=3 score=-15 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 5']
+
+=== Session B: first-try win (bug 8) ===
+  guess=50     attempts=1 score=100 status=won hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+  success: ['You won! The secret was 50. Final score: 100. Press New Game to play again.']
+
+=== Session C: invalid / out-of-range input (bugs 7, 9) ===
+  guess='abc'  attempts=0 score=0 status=playing hint=[] errors=['That is not a number.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 8']
+  guess=''     attempts=0 score=0 status=playing hint=[] errors=['Enter a guess.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 8']
+  guess='3.5'  attempts=0 score=0 status=playing hint=[] errors=['Please enter a whole number.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 8']
+  guess='-5'   attempts=0 score=0 status=playing hint=[] errors=['Guess must be between 1 and 100.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 8']
+  guess='500'  attempts=0 score=0 status=playing hint=[] errors=['Guess must be between 1 and 100.']
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 8']
+  history: []
+
+=== Session D: win, then press New Game (bug 5) ===
+  guess=50     attempts=1 score=100 status=won hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+  after New Game: status=playing attempts=0 score=0 history=[]
+  banner: ['Guess a number between 1 and 100. Attempts left: 8']
+  guess=79     attempts=1 score=100 status=won hint=[] errors=[]
+      info banner -> ['Guess a number between 1 and 100. Attempts left: 7']
+
+=== Session E: Hard difficulty (bug 6) ===
+  sidebar: ['Range: 1 to 200', 'Attempts allowed: 5']
+  main banner: ['Guess a number between 1 and 200. Attempts left: 5']
+  secret in range: True
+
+=== Session F: run out of attempts on Easy ===
+  guess=1      attempts=1 score=-5 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 5']
+  guess=2      attempts=2 score=-10 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 4']
+  guess=3      attempts=3 score=-15 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 3']
+  guess=4      attempts=4 score=-20 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 2']
+  guess=5      attempts=5 score=-25 status=playing hint=['Go HIGHER!'] errors=[]
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 1']
+  guess=6      attempts=6 score=-30 status=lost hint=['Go HIGHER!'] errors=['Out of attempts! The secret was 10. Score: -30. Press New Game to try again.']
+      info banner -> ['Guess a number between 1 and 20. Attempts left: 0']
+  end message: ['Out of attempts! The secret was 10. Score: -30. Press New Game to try again.']
